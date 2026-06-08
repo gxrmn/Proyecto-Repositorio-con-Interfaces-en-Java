@@ -50,32 +50,16 @@ public class ClienteListRepositorio implements OrdenablePaginableContableCrudRep
     @Override
     public List<Cliente> listar(String campo, Direccion direccion) {
         List<Cliente> listaOrdenada = new ArrayList<>(this.dataSource);
-
-        listaOrdenada.sort(( a, b) -> {
+        listaOrdenada.sort((a, b) -> {
                 int resultado = 0;
                 if(direccion == Direccion.ASC){
-                    switch (campo){
-                        case "id" ->
-                            resultado = a.getId().compareTo(b.getId());
-                        case "nombre" ->
-                            resultado = a.getNombre().compareTo(b.getNombre());
-                        case "apellido" ->
-                            resultado = a.getApellido().compareTo(b.getApellido());
-                    }
+                    resultado = ordenar(campo, a,b);
                 }
                 else if(direccion == Direccion.DESC){
-                    switch (campo){
-                        case "id" ->
-                                resultado = b.getId().compareTo(a.getId());
-                        case "nombre" ->
-                                resultado = b.getNombre().compareTo(a.getNombre());
-                        case "apellido" ->
-                                resultado = b.getApellido().compareTo(a.getApellido());
-                    }
+                    resultado = ordenar(campo, b,a);
                 }
                 return resultado;
-            }
-        );
+        });
         return listaOrdenada;
     }
 
@@ -84,8 +68,22 @@ public class ClienteListRepositorio implements OrdenablePaginableContableCrudRep
         return dataSource.subList(desde, hasta);
     }
 
+    public static int ordenar(String campo, Cliente a, Cliente b){
+        int resultado=0;
+        switch (campo){
+            case "id" ->
+                    resultado = a.getId().compareTo(b.getId());
+            case "nombre" ->
+                    resultado = a.getNombre().compareTo(b.getNombre());
+            case "apellido" ->
+                    resultado = a.getApellido().compareTo(b.getApellido());
+        }
+        return resultado;
+    }
+
     @Override
     public int total() {
         return this.dataSource.size();
     }
+
 }
