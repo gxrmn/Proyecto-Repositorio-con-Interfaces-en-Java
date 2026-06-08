@@ -8,24 +8,22 @@ import java.util.List;
 public class EjemploRepositorio {
     public static void main(String[] args) {
 
-        CrudRepositorio repo = new ClienteListRepositorio();
+        OrdenablePaginableContableCrudRepositorio repo = new ClienteListRepositorio();
         repo.crear(new Cliente("German","Gonzalez"));
         repo.crear(new Cliente("Geronimo","Sandoval"));
         repo.crear(new Cliente("Alessandro", "Magno"));
         repo.crear(new Cliente("Andres","Perez"));
 
         List<Cliente> clientes = repo.listar();
-        clientes.forEach(c->{
-            System.out.println(c);
-        });
+        clientes.forEach(System.out::println);
         System.out.println("========= paginable =========");
-        List<Cliente> paginable = ((PaginableRepositorio)repo).listar(1,3);
+        List<Cliente> paginable = repo.listar(1,3);
         paginable.forEach(System.out::println);
         System.out.println("========= orden Asc =========");
-        List<Cliente> ordenAsc = ((OrdenableRepositorio)repo).listar("nombre",ASC);
+        List<Cliente> ordenAsc = repo.listar("nombre",ASC);
         ordenAsc.forEach(System.out::println);
         System.out.println("========= orden Desc =========");
-        List<Cliente> ordenDesc = ((OrdenableRepositorio)repo).listar("nombre",DESC);
+        List<Cliente> ordenDesc = repo.listar("nombre",DESC);
         ordenDesc.forEach(System.out::println);
 
         System.out.println("======== Editar =========");
@@ -38,5 +36,7 @@ public class EjemploRepositorio {
         System.out.println("======== Eliminar =========");
         repo.eliminar(2);
         repo.listar().forEach(System.out::println);
+        System.out.println("======== Total de Registros =========");
+        repo.total();
     }
 }
