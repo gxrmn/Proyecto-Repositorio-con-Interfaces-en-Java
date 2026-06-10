@@ -1,14 +1,12 @@
 package com.german.interfacesRepositorio.repositorio;
 
-import com.german.interfacesRepositorio.models.Cliente;
-
 import java.util.List;
 
-public interface CrudRepositorio {
+public interface CrudRepositorio<T> {
 
-    List<Cliente> listar();
-    Cliente porId(Integer id);
-    void crear(Cliente cliente);
-    void editar(Cliente cliente);
+    List<T> listar();
+    T porId(Integer id);
+    void crear(T t);
+    void editar(T t);
     void eliminar(Integer id);
 }

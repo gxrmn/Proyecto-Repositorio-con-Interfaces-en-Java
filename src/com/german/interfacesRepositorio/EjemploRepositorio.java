@@ -2,13 +2,15 @@ package com.german.interfacesRepositorio;
 
 import com.german.interfacesRepositorio.models.*;
 import com.german.interfacesRepositorio.repositorio.*;
+import com.german.interfacesRepositorio.repositorio.lista.ClienteListRepositorio;
+
 import static com.german.interfacesRepositorio.repositorio.Direccion.*;
 import java.util.List;
 
 public class EjemploRepositorio {
     public static void main(String[] args) {
 
-        OrdenablePaginableContableCrudRepositorio repo = new ClienteListRepositorio();
+        OrdenablePaginableContableCrudRepositorio<Cliente> repo = new ClienteListRepositorio();
         repo.crear(new Cliente("German","Gonzalez"));
         repo.crear(new Cliente("Geronimo","Sandoval"));
         repo.crear(new Cliente("Alessandro", "Magno"));

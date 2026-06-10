@@ -1,10 +1,9 @@
 package com.german.interfacesRepositorio.repositorio;
 
-import com.german.interfacesRepositorio.models.Cliente;
 import java.util.List;
 
-public interface OrdenableRepositorio {
+public interface OrdenableRepositorio<T> {
 
-    List<Cliente> listar(String campo, Direccion direccion);
+    List<T> listar(String campo, Direccion direccion);
 
 }

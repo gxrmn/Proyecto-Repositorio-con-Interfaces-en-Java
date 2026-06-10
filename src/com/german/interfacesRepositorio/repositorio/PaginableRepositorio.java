@@ -1,11 +1,9 @@
 package com.german.interfacesRepositorio.repositorio;
 
-import com.german.interfacesRepositorio.models.Cliente;
-
 import java.util.List;
 
-public interface PaginableRepositorio {
+public interface PaginableRepositorio<T> {
 
-    List<Cliente> listar(int desde, int hasta);
+    List<T> listar(int desde, int hasta);
 
 }
