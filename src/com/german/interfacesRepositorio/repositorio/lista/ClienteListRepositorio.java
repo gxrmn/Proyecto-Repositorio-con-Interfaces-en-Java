@@ -1,5 +1,6 @@
 package com.german.interfacesRepositorio.repositorio.lista;
 
+import com.german.interfacesRepositorio.Excepciones.LecturaAccesoDatoException;
 import com.german.interfacesRepositorio.repositorio.AbstractaListRepositorio;
 import com.german.interfacesRepositorio.models.Cliente;
 import com.german.interfacesRepositorio.repositorio.Direccion;
@@ -9,7 +10,7 @@ import java.util.List;
 public class ClienteListRepositorio extends AbstractaListRepositorio<Cliente> {
 
     @Override
-    public void editar(Cliente cliente) {
+    public void editar(Cliente cliente) throws LecturaAccesoDatoException {
         Cliente c = this.porId(cliente.getId());
         c.setNombre(cliente.getNombre());
         c.setApellido(cliente.getApellido());

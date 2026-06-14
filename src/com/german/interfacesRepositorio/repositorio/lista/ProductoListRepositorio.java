@@ -1,5 +1,6 @@
 package com.german.interfacesRepositorio.repositorio.lista;
 
+import com.german.interfacesRepositorio.Excepciones.LecturaAccesoDatoException;
 import com.german.interfacesRepositorio.models.Cliente;
 import com.german.interfacesRepositorio.models.Producto;
 import com.german.interfacesRepositorio.repositorio.AbstractaListRepositorio;
@@ -11,7 +12,7 @@ import java.util.List;
 public class ProductoListRepositorio extends AbstractaListRepositorio<Producto> {
 
     @Override
-    public void editar(Producto producto) {
+    public void editar(Producto producto) throws LecturaAccesoDatoException {
         Producto p = this.porId(producto.getId());
         p.setPrecio(producto.getPrecio());
         p.setDescripcion(producto.getDescripcion());

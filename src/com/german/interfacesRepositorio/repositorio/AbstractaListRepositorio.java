@@ -1,5 +1,6 @@
 package com.german.interfacesRepositorio.repositorio;
 
+import com.german.interfacesRepositorio.Excepciones.*;
 import com.german.interfacesRepositorio.models.BaseEntity;
 
 import java.util.ArrayList;
@@ -19,24 +20,36 @@ public abstract class AbstractaListRepositorio<T extends BaseEntity> implements 
     }
 
     @Override
-    public T porId(Integer id) {
+    public T porId(Integer id) throws LecturaAccesoDatoException{
+        if(id == null || id <= 0){
+            throw new LecturaAccesoDatoException("Id Invalido debe ser mayor a 0");
+        }
         T resultado = null;
         for(T cliente : dataSource){
             if(cliente.getId() != null && cliente.getId().equals(id)){
                 resultado = cliente;
             }
         }
+        if(resultado == null){
+            throw new LecturaAccesoDatoException("No existe un registro con ese id: " + id);
+        }
         return resultado;
     }
 
     @Override
-    public void crear(T t) {
+    public void crear(T t) throws EscrituraAccesoDatoException {
+        if(t == null){
+            throw new EscrituraAccesoDatoException("Error al ingresar un objeto nulo");
+        }
+        if(dataSource.contains(t)){
+            throw new RegistroDuplicadoAccesoDatoException("Ese objeto ya existe en la lista, no puedes duplicarlo");
+        }
         this.dataSource.add(t);
     }
 
 
     @Override
-    public void eliminar(Integer id) {
+    public void eliminar(Integer id) throws LecturaAccesoDatoException {
         this.dataSource.remove(this.porId(id));
     }
 
